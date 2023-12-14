@@ -1,4 +1,4 @@
- Configuramos el proveedor de AWS
+ Configuramos el proveedor de AWS-
 provider "aws" {
   region = var.region
   access_key = var.access_key
