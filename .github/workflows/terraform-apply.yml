@@ -1,0 +1,26 @@
+name: Terraform Apply
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform_apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@v2
+        with:
+          name: tfplan
+          path: ./tfplan
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve ./tfplan
