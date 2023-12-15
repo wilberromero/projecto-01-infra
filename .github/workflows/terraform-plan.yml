@@ -28,4 +28,12 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: |
+         terraform plan -out=tfplan
+         echo "::set-output name=tfplan::$(terraform show -json tfplan)"
+
+      - name : Upload tfplan artifact
+        uses: actions/upload-artifact@v2
+        with: 
+          name: tfplan
+          path: tfplan
