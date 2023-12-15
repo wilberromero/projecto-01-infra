@@ -1,4 +1,27 @@
+name: Terraform Plan
+on:
+  pull_request:
+    branches:      
+      - main
+      - feature/*      
+    
+jobs:
+  terraform_plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2         
 
 
+      - name: Terraform Init
+        run: terraform init
 
+      - name: Terraform validate
+        run: terraform validate
 
+      - name: Terraform Plan
+        run: |
+         terraform plan -out=tfplan
+         mv tfplan $GITHUB_WORKSPACE
+        
+      
