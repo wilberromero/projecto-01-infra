@@ -14,9 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v1     
        
-      - name: init
-        run: terraform init  
-       
+            
 
       - name: Terraform Apply
         run: terraform apply tfplan
