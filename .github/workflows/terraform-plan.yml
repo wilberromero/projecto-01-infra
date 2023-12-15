@@ -25,5 +25,6 @@ jobs:
       - name: Terraform Plan
         run: |
          terraform plan -out=tfplan
+         mv tfplan $GITHUB_WORKSPACE
         
       
