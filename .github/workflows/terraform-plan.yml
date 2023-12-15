@@ -5,6 +5,10 @@ on:
       - main
       - feature/*
     
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature
 jobs:
   terraform_plan:
     runs-on: ubuntu-latest
