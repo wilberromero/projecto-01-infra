@@ -12,23 +12,16 @@ jobs:
     
 
       - name: Checkout Repository
-        uses: actions/checkout@v1     
+        uses: actions/checkout@v1   
         
+      - name: Terraform Init
+        run: terraform init   
       
-      - name: Download Terraform Plan
-        uses: actions/download-artifact@v2
-        with:
-          name: tfplan
-          path: ./artifacts/
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-            terraform_version: 1.0.9 
+      
 
       - name: Terraform Apply
         run: |
-           terraform apply -auto-approve tfplan
+           terraform apply -auto-approve 
   
 
       

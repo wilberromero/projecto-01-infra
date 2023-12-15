@@ -13,12 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.9        
+        uses: actions/checkout@v2         
 
 
       - name: Terraform Init
@@ -30,19 +25,5 @@ jobs:
       - name: Terraform Plan
         run: |
          terraform plan -out=tfplan
-         echo "::set-output name=tfplan::$(terraform show -json tfplan)"
-         
-      - name: save tfplan         
-        working-directory: ${{ github.workspace}}
-        shell: bash
-        env:
-          TFPLAN_PATH: tfplan
-        run: |
-         mkdir -p artifacts
-         mv $TFPLAN_PATH ./artifacts/       
-
-      - name : Upload tfplan artifact
-        uses: actions/upload-artifact@v2
-        with: 
-          name: tfplan
-          path: ./artifacts/
+        
+      
