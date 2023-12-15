@@ -31,10 +31,18 @@ jobs:
         run: |
          terraform plan -out=tfplan
          echo "::set-output name=tfplan::$(terraform show -json tfplan)"
-         mv tfplan tfplan.tf
+         
+      - name: save tfplan         
+        working-directory: ${{ github.workspace}}
+        shell: bash
+        env:
+          TFPLAN_PATH: tfplan
+        run: |
+         mkdir -p artifacts
+         mv $TFPLAN_PATH ./artifacts/       
 
       - name : Upload tfplan artifact
         uses: actions/upload-artifact@v2
         with: 
           name: tfplan
-          path: tfplan.tf
+          path: ./artifacts/
