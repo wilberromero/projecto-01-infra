@@ -31,9 +31,10 @@ jobs:
         run: |
          terraform plan -out=tfplan
          echo "::set-output name=tfplan::$(terraform show -json tfplan)"
+         mv tfplan tfplan.tf
 
       - name : Upload tfplan artifact
         uses: actions/upload-artifact@v2
         with: 
           name: tfplan
-          path: tfplan
+          path: tfplan.tf
