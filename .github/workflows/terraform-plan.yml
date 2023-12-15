@@ -4,8 +4,8 @@ on:
     branches:      
       - main
       - feature/*
+      
     
-
 jobs:
   terraform_plan:
     runs-on: ubuntu-latest
