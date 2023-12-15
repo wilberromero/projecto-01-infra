@@ -4,9 +4,7 @@ on:
     branches:      
       - main
       - feature/*
-    types:
-      - opened
-      - synchronize
+    
 
 jobs:
   terraform_plan:
