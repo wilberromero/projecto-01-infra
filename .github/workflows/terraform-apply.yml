@@ -14,11 +14,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v1     
        
-      
+      - name: init
+        uses: terraform init  
+       
 
       - name: Terraform Apply
-        run: |
-           terraform apply -auto-approve 
+        run: terraform apply tfplan
   
 
       
