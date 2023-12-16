@@ -1,4 +1,4 @@
- Configuramos el proveedor de AWS-git 
+# Configuramos el proveedor de AWS-git 
 provider "aws" {
   region = var.region
   access_key = var.access_key
@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "public" {
-    vpc_id = aws_vpc.main.vpc_id
+    vpc_id = aws_vpc.main.id
     cidr_block = var.public_subnet_cidr
     availability_zone = var.availability_zone
     map_public_ip_on_launch = true
@@ -28,15 +28,14 @@ resource "aws_internet_gateway" "gw" {
     tags = {
         Name = "InternetGateway"
     }
-
 }
 
 # Crear tabla de rutas 
 resource "aws_route_table" "public" {
     vpc_id = aws_vpc.main.id
 
-    route = {
-        cidr_block = "0.0.0.0/0
+    route {
+        cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.gw.id
     }
     tags = {
@@ -76,24 +75,21 @@ resource "aws_ecs_cluster" "my_cluster" {
 }
 
 # Definicion de tareas
-
-resource "aws_ecs_task_definition" "example_tast"{
-    family                   = "example_tast"
+resource "aws_ecs_task_definition" "example_task" {
+    family                   = "example_task"
     network_mode             = "awsvpc"
     requires_compatibilities = ["FARGATE"]
-    cpu                      = "256"
-    memory                   = "512"
+    cpu                      = 256
+    memory                   = 512
 
-    container_definitions = jsonencode([
-        {
-            name  = "example-container"
-            image = "nginx:latest"
-            portMappings = [
-                containerPort = 80
-                hostPort      = 80
-            ]
-        }
-    ])
+    container_definitions = jsonencode([{
+      name  = "example-container"
+      image = "nginx:latest"
+      portMappings = [{
+        containerPort = 80
+        hostPort      = 80
+      }]
+    }])
 }
 
 # Servicio ECS
@@ -113,7 +109,7 @@ resource "aws_ecs_service" "example_service" {
 
 # Crear un Application Load Balancer (ALB)
 resource "aws_lb" "my_lb" {
-    name               = "my_lb"
+    name               = "my-lb"
     internal           = false
     load_balancer_type = "application"
     subnets            = [aws_subnet.public.id]
@@ -121,7 +117,7 @@ resource "aws_lb" "my_lb" {
 
 # Crear un grupo objetivo para el ALB
 resource "aws_lb_target_group" "my_target_group" {
-    name       = "my_target_group"
+    name       = "my-target-group"
     port       = 80
     protocol   = "HTTP"
     vpc_id     = aws_vpc.main.id
@@ -129,7 +125,7 @@ resource "aws_lb_target_group" "my_target_group" {
 
 # Listener ALB
 resource "aws_lb_listener" "example_listener" {
-  load_balancer_arn = aws_lb.my_alb.arn
+  load_balancer_arn = aws_lb.my_lb.arn
   port              = 80
   protocol          = "HTTP"
 
@@ -140,19 +136,44 @@ resource "aws_lb_listener" "example_listener" {
 }
 
 # Depósito S3
-resource "aws_s3_bucket" "example_bucket" {
-  bucket = "example-bucket"
-  acl    = "private"
-  // Otras configuraciones del depósito S3
+resource "aws_s3_bucket" "example_infra23" {
+  bucket = "example-infra23"
 }
 
 # Distribución de CloudFront
 resource "aws_cloudfront_distribution" "example_distribution" {
+  enabled = true
   origin {
-    domain_name = aws_s3_bucket.example_bucket.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.example_infra23.bucket_regional_domain_name
     origin_id   = "S3-example-bucket"
+  } 
+  restrictions {
+    geo_restriction {
+      restriction_type = "whitelist"
+      locations = ["US","CA","GB"]
+    }
   }
-  // Otras configuraciones de la distribución de CloudFront
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+  default_cache_behavior {
+    allowed_methods = ["GET","HEAD","OPTIONS"]
+    cached_methods = ["GET","HEAD"]
+    target_origin_id = "example_infra23"
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl = 0
+    default_ttl = 3600
+    max_ttl = 86400
+  }
 }
 
 # Identidad de Acceso de Origen (OAI)
@@ -162,7 +183,7 @@ resource "aws_cloudfront_origin_access_identity" "example_oai" {
 
 # Política de Depósito OAI
 resource "aws_s3_bucket_policy" "example_bucket_policy" {
-  bucket = aws_s3_bucket.example_bucket.id
+  bucket = aws_s3_bucket.example_infra23.id
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -174,18 +195,19 @@ resource "aws_s3_bucket_policy" "example_bucket_policy" {
           CanonicalUser = aws_cloudfront_origin_access_identity.example_oai.cloudfront_access_identity_path
         },
         Action    = ["s3:GetObject"],
-        Resource  = "${aws_s3_bucket.example_bucket.arn}/*"
+        Resource  = "${aws_s3_bucket.example_infra23.arn}/*"
       }
     ]
   })
 }
 
+
 # configurar el backend de Terraform para almacenar el tfstate en s3. 
-terraform = {
+terraform {
     backend "s3" {
-        bucket = "aws_s3_bucket.example_bucket.bucket"
-        key = "terraform.tfstate"
-        region = var.region
+        bucket = "example-infra23"
+        key    = "terraform.tfstate"
+        region = "us-east-1"
     }
 }
 

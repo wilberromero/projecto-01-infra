@@ -5,6 +5,6 @@ output "ecs_cluster_id" {
 
 output "s3_bucket_id" {
     description = "Id del depósito S3 creado"
-    value = aws_s3_bucket.example_bucket.id
+    value = aws_s3_bucket.example_infra23.id
 }
 
