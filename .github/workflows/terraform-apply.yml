@@ -21,7 +21,7 @@ jobs:
         run: terraform init            
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan -no-color  -refresh-only
+        run: terraform apply -auto-approve tfplan -no-color -refresh-only
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
   
 
