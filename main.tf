@@ -105,7 +105,7 @@ resource "aws_ecs_service" "example_service" {
   desired_count   = 2
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = var.public_subnet_cidr[*]
+    subnets         = aws_subnet.public[*].id
     security_groups = [aws_security_group.example.id]
   }
 
@@ -117,7 +117,7 @@ resource "aws_lb" "my_lb" {
     name               = "my-lb"
     internal           = false
     load_balancer_type = "application"
-    subnets            = aws_subnet.public[0].id
+    subnets            = aws_subnet.public[*].id
 }
 
 # Crear un grupo objetivo para el ALB
@@ -155,6 +155,8 @@ terraform {
         secret_key = "wZ3Qn8nq6JRYo69X9MLPr98L+jqc38iegbpUzpqH"
     }
 }
+
+
 
 
 
