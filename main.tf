@@ -34,6 +34,7 @@ resource "aws_internet_gateway" "gw" {
     }
 }
 
+
 # Crear tabla de rutas 
 resource "aws_route_table" "public" {
     vpc_id = aws_vpc.main.id
