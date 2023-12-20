@@ -14,7 +14,7 @@ variable "region" {
 
 variable "vpc_cidr" {
     description = "CIDR block para la vpc"
-    default = "10.0.0.0/24"
+    default = "10.0.0.0/16"
 }
 
 variable "public_subnet_cidr" {
