@@ -27,7 +27,7 @@ resource "aws_subnet" "public" {
 
 resource "aws_subnet" "public2" {
     vpc_id = aws_vpc.main.id
-    cidr_block = var.public_subnet_cidr
+    cidr_block = "10.0.2.0/24"
     availability_zone = var.availability_zone_2
     map_public_ip_on_launch = true
     tags = {
@@ -113,7 +113,7 @@ resource "aws_ecs_service" "example_service" {
   desired_count   = 2
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = [aws_subnet.public.id]
+    subnets         = [aws_subnet.public.id, aws_subnet.public2.id]
     security_groups = [aws_security_group.example.id]
   }
 
@@ -151,7 +151,7 @@ resource "aws_lb_listener" "example_listener" {
 
 # Depósito S3
 resource "aws_s3_bucket" "example_infra23" {
-  bucket = "example-infra23"
+  bucket = "example-infra23"  
 }
 
 # Distribución de CloudFront
