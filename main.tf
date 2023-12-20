@@ -105,7 +105,7 @@ resource "aws_ecs_service" "example_service" {
   desired_count   = 2
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = [aws_subnet.public[0].id,aws_subnet.public[1].id]
+    subnets         = aws_subnet.public[*].id
     security_groups = [aws_security_group.example.id]
   }
 
