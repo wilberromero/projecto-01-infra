@@ -111,6 +111,7 @@ resource "aws_ecs_service" "example_service" {
 
 }
 
+
 # Crear un Application Load Balancer (ALB)
 resource "aws_lb" "my_lb" {
     name               = "my-lb"
