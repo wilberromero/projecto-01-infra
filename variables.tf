@@ -18,7 +18,7 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnet_cidr" {
-    default     = ["10.0.0.0/24", "10.0.2.0/24"]
+    default     = ["10.0.0.0/24","10.0.2.0/24"]
     type        = list
     description = "List of public subnet CIDR blocks"
 }
