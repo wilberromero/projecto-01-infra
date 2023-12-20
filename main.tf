@@ -110,6 +110,8 @@ resource "aws_ecs_service" "example_service" {
   }
 
 }
+
+
 # Crear un Application Load Balancer (ALB)
 resource "aws_lb" "my_lb" {
     name               = "my-lb"
@@ -153,6 +155,8 @@ terraform {
         secret_key = "wZ3Qn8nq6JRYo69X9MLPr98L+jqc38iegbpUzpqH"
     }
 }
+
+
 
 
 
