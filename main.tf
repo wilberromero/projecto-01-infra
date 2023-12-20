@@ -49,7 +49,7 @@ resource "aws_route_table" "public" {
 
 # Asociar la subred publica a la tabla de rutas y agregar una ruta al gateway de internet
 resource "aws_route_table_association" "public_route_association" {
-    subnet_id = aws_subnet.public[*].id
+    subnet_id = aws_subnet.public[0].id
     route_table_id = aws_route_table.public.id
 }
 
