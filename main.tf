@@ -25,16 +25,6 @@ resource "aws_subnet" "public" {
     }
 }
 
-resource "aws_subnet" "public2" {
-    vpc_id = aws_vpc.main.id
-    cidr_block = var.public_subnet_cidr2
-    availability_zone = var.availability_zone_2
-    map_public_ip_on_launch = true
-    tags = {
-        Name = "PublicSubnet"
-    }
-}
-
 # Crear un gateway de internet
 resource "aws_internet_gateway" "gw" {
     vpc_id = aws_vpc.main.id
@@ -113,7 +103,7 @@ resource "aws_ecs_service" "example_service" {
   desired_count   = 2
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = [aws_subnet.public.id, aws_subnet.public2.id]
+    subnets         = [aws_subnet.public.id]
     security_groups = [aws_security_group.example.id]
   }
 
@@ -125,7 +115,7 @@ resource "aws_lb" "my_lb" {
     name               = "my-lb"
     internal           = false
     load_balancer_type = "application"
-    subnets            = [aws_subnet.public.id, aws_subnet.public2.id]
+    subnets            = [aws_subnet.public.id]
 }
 
 # Crear un grupo objetivo para el ALB

@@ -19,13 +19,10 @@ variable "vpc_cidr" {
 
 variable "public_subnet_cidr" {
     description = "CIDR block para la subnet"
-    default = "10.1.2.0/24"
+    default     = ["100.0.1.0/24","100.0.2.0/24"]
 }
 
-variable "public_subnet_cidr2" {
-    description = "CIDR block para la subnet"
-    default = "10.1.3.0/24"
-}
+
 
 variable "availability_zone" {
     description = "zona de disponibilidad"
