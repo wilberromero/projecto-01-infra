@@ -17,18 +17,9 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "public" {
     vpc_id = aws_vpc.main.id
-    cidr_block = var.public_subnet_cidr
+    count = length(var.public_subnet_cidr)
+    cidr_block = var.public_subnet_cidr[count.index]
     availability_zone = var.availability_zone
-    map_public_ip_on_launch = true
-    tags = {
-        Name = "PublicSubnet"
-    }
-}
-
-resource "aws_subnet" "public2" {
-    vpc_id = aws_vpc.main.id
-    cidr_block = var.public_subnet_cidr2
-    availability_zone = var.availability_zone_2
     map_public_ip_on_launch = true
     tags = {
         Name = "PublicSubnet"
@@ -58,7 +49,7 @@ resource "aws_route_table" "public" {
 
 # Asociar la subred publica a la tabla de rutas y agregar una ruta al gateway de internet
 resource "aws_route_table_association" "public_route_association" {
-    subnet_id = aws_subnet.public.id
+    subnet_id = aws_subnet.public[*].id
     route_table_id = aws_route_table.public.id
 }
 
@@ -113,7 +104,7 @@ resource "aws_ecs_service" "example_service" {
   desired_count   = 2
   launch_type     = "FARGATE"
   network_configuration {
-    subnets         = [aws_subnet.public.id, aws_subnet.public2.id]
+    subnets         = aws_subnet.public[*].id
     security_groups = [aws_security_group.example.id]
   }
 
@@ -125,7 +116,7 @@ resource "aws_lb" "my_lb" {
     name               = "my-lb"
     internal           = false
     load_balancer_type = "application"
-    subnets            = [aws_subnet.public.id, aws_subnet.public2.id]
+    subnets            = aws_subnet.public[*].id
 }
 
 # Crear un grupo objetivo para el ALB
