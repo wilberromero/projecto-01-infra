@@ -22,8 +22,12 @@ variable "public_subnet_cidr" {
     default = "10.0.1.0/24"
 }
 
-
 variable "availability_zone" {
     description = "zona de disponibilidad"
     default = "us-east-1a"
+}
+
+variable "availability_zone_2" {
+    description = "zona de disponibilidad"
+    default = "us-east-1b"
 }
