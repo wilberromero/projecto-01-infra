@@ -1,3 +1,6 @@
+
+# terraform import aws_s3_bucket.example-infra23 example-infra23
+
 # Configuramos el proveedor de AWS-git 
 provider "aws" {
   region = var.region
