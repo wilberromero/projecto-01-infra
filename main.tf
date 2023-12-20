@@ -110,12 +110,13 @@ resource "aws_ecs_service" "example_service" {
   }
 
 }
+
 # Crear un Application Load Balancer (ALB)
 resource "aws_lb" "my_lb" {
     name               = "my-lb"
     internal           = false
     load_balancer_type = "application"
-    subnets            = aws_subnet.public[*].id
+    subnets            = aws_subnet.public[0].id
 }
 
 # Crear un grupo objetivo para el ALB
