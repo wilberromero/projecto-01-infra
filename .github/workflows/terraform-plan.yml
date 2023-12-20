@@ -23,7 +23,10 @@ jobs:
         run: terraform validate
 
       - name: Import bucket s3 existente
-        uses: terraform import aws_s3_bucket.example-infra23 example-infra23
+        run: terraform state rm aws_s3_bucket.example_infra23
+
+      - name: Import bucket s3 existente
+        run: terraform import aws_s3_bucket.example_infra23 example-infra23
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
