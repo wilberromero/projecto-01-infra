@@ -29,7 +29,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "public_2" {
     vpc_id = aws_vpc.main.id
     count = length(var.public_subnet_cidr)
-    cidr_block = var.public_subnet_cidr[count.index]
+    cidr_block = var.public_subnet_cidr_2[count.index]
     availability_zone = var.availability_zone_2
     map_public_ip_on_launch = true
     tags = {
