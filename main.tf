@@ -128,7 +128,7 @@ resource "aws_lb" "my_lb" {
     name               = "my-lb"
     internal           = false
     load_balancer_type = "application"
-    subnets            = [aws_subnet.public[*].id,aws_subnet.public_2[*].id]
+    subnets            = [aws_subnet.public[0].id,aws_subnet.public_2[0].id]
 }
 
 # Crear un grupo objetivo para el ALB
