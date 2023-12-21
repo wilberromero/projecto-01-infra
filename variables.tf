@@ -24,6 +24,11 @@ variable "public_subnet_cidr" {
     description = "List of public subnet CIDR blocks"
 }
 
+variable "public_subnet_cidr_2" {
+    default     = ["10.0.3.0/24","10.0.4.0/24"]
+    type        = list
+    description = "List of public subnet CIDR blocks"
+}
 
 
 variable "availability_zone" {
