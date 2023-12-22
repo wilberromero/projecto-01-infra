@@ -16,7 +16,6 @@ variable "public_subnet_cidr_2" {
     description = "List of public subnet CIDR blocks"
 }
 
-
 variable "availability_zone" {
     description = "zona de disponibilidad"
     default = "us-east-1a"
