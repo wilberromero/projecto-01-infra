@@ -27,7 +27,6 @@ module "application_load_balancer" {
     vpc_id_from_networking_module = module.networking.vpc_id
 }
 
-
 module "bucket" {
     source = "./modules/s3"
 }
