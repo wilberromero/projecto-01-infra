@@ -20,10 +20,7 @@ jobs:
         run: terraform init        
 
       - name: Terraform validate
-        run: terraform validate
-
-      - name: Import bucket s3 existente
-        run: terraform state rm module.bucket.aws_s3_bucket.example_infra23
+        run: terraform validate      
 
       - name: Import bucket s3 existente
         run: terraform import module.bucket.aws_s3_bucket.example_infra23 example-infra23
