@@ -1,10 +1,6 @@
-output "ecs_cluster_id" {
+output "vpc_id" {
     description = "Id del ECS cluster creado"
-    value = aws_ecs_cluster.my_cluster.id
+    value = module.networking.vpc_id
 }
 
-output "s3_bucket_id" {
-    description = "Id del depósito S3 creado"
-    value = aws_s3_bucket.example_infra23.id
-}
 
