@@ -22,6 +22,7 @@ resource "aws_ecs_task_definition" "example_task" {
     }])
 }
 
+
 # Servicio ECS
 resource "aws_ecs_service" "example_service" {
   name            = "example-service"
