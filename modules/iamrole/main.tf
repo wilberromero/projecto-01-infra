@@ -19,7 +19,7 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
                         "iam:PutRolePolicy",
                         "iam:CreatePolicyVersion"
                     ],
-                    Resource = "*"
+                    Resource = "arn:aws:iam::393732592512:policy/ecs_task_execution_policy"
             }
         ]
     })    
