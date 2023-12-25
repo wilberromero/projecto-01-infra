@@ -17,6 +17,8 @@ resource "aws_ecs_task_definition" "example_task" {
     cpu                      = 256
     memory                   = 512
 
+    execution_role_arn = var.ecs_task_execution_role_arn_from_iamrole_module
+
     container_definitions = jsonencode([{
       name  = "example-container"
       image = aws_ecr_repository.my_ecr_repo.repository_url
@@ -26,7 +28,7 @@ resource "aws_ecs_task_definition" "example_task" {
       }]
     }])
 
-    
+
 }
 
 # Servicio ECS
