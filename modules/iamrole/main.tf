@@ -13,6 +13,21 @@ resource "aws_iam_role" "ecs_task_execution_role" {
             }
         ]
     })
+
+    inline_policy {
+        name = "ecs-ecs_task_execution_policy"
+
+        policy = jsonencode({
+            Version = "2012-10-17"
+            Statement = [
+                {
+                    Effect    = "Allow"                    
+                    Action  = "iam:CreateRole"
+                    Resource = "arn:aws:iam::393732592512:role/*"
+                }
+            ]
+        })
+    }
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
