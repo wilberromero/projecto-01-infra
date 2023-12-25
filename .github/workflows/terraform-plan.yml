@@ -3,8 +3,7 @@ on:
   pull_request:
     branches:      
       - main
-      - 'feature/*' 
-      
+      - 'feature/*'       
     
 jobs:
   terraform_plan:
