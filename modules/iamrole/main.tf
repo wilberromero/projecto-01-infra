@@ -39,7 +39,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
 }
 
 resource "aws_iam_user_policy_attachment" "attachment_create_role_policy_to_user" {
-    user = "arn:aws:iam:3937332592512:user/*"
+    user = "arn:aws:iam:393732592512:user/*"
     policy_arn = aws_iam_policy.ecs_task_execution_policy.arn
 }
 
