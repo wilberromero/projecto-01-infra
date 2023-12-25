@@ -4,7 +4,7 @@ resource "aws_ecs_cluster" "my_cluster" {
     name = "my_cluster"
 }
 
-#crear un Ecr repositorio
+#crear un Ecr repositorio.
 resource "aws_ecr_repository" "my_ecr_repo" {
     name = "my-container-repo"
 }
