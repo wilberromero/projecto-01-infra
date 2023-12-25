@@ -3,10 +3,10 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
     name = "ecs-task-execution-policy"
 
     policy = jsonencode({
-        Version = "2012-10-17"
+        Version = "2012-10-17",
         Statement = [
             {
-                    Effect    = "Allow"                  
+                    Effect    = "Allow",              
                     Action = [
                         "iam:GetRole",
                         "iam:GetRolePolicy",
@@ -17,7 +17,7 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
                         "iam:CreateRole",
                         "iam:AttachRolePolicy",
                         "iam:PutRolePolicy"
-                    ]
+                    ],
                     Resource = "*"
             }
         ]
@@ -28,10 +28,10 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     name = "ecs-task-execution-role"
 
     assume_role_policy = jsonencode({
-        Version = "2012-10-17"
+        Version = "2012-10-17",
         Statement = [
             {
-                Effect    = "Allow"
+                Effect    = "Allow",
                 Principal = {
                     Service = "ecs-tasks.amazonaws.com"
                 },
