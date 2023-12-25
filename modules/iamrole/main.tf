@@ -30,7 +30,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
         ]
     })
 
-    policy_arns =[
+    policy_arns = [
         aws_iam_policy.ecs_task_execution_policy.arn
     ]
 }
