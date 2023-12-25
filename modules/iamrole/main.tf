@@ -7,7 +7,14 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
         Statement = [
             {
                     Effect    = "Allow"                    
-                    Action  = ["iam:AttachRolePolicy","iam:PutRolePolicy","iam:CreateRole","iam:CreatePolicy"]
+                    Action  = [
+                        "iam:AttachRolePolicy",
+                        "iam:PutRolePolicy",
+                        "iam:CreateRole",
+                        "iam:CreatePolicy",
+                        "iam:CreatePolicyVersion",
+                        "iam:SetDefaultPolicyVersion"
+                    ]
                     Resource = "*"
             }
         ]
