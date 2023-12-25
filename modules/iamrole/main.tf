@@ -7,7 +7,17 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
         Statement = [
             {
                     Effect    = "Allow"                  
-                    Action  = "*"
+                    Action = [
+                        "iam:GetRole",
+                        "iam:GetRolePolicy",
+                        "iam:PassRole",
+                        "iam:DetachRolePolicy",
+                        "iam:DeleteRolePolicy",
+                        "iam:DeleteRole",
+                        "iam:CreateRole",
+                        "iam:AttachRolePolicy",
+                        "iam:PutRolePolicy"
+                    ]
                     Resource = "*"
             }
         ]
@@ -30,13 +40,6 @@ resource "aws_iam_role" "ecs_task_execution_role" {
         ]
     })
 }
-
-
-resource "aws_iam_user_policy_attachment" "attachment_create_role_policy_to_user" {
-    user = "arn:aws:iam:393732592512:user/*"
-    policy_arn = aws_iam_policy.ecs_task_execution_policy.arn
-}
-
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
     role = aws_iam_role.ecs_task_execution_role.name
