@@ -17,6 +17,7 @@ module "container" {
     subnet_public_1_id_from_networking_module = module.networking.subnet_public_1
     subnet_public_2_id_from_networking_module = module.networking.subnet_public_2
     aws_security_group_id_from_networking_module = module.networking.aws_security_group
+    ecs_task_execution_role_arn_from_iamrole_module = module.iamrole.arn_iam_role_ecs_task_execution
 
 }
 
@@ -25,6 +26,11 @@ module "application_load_balancer" {
     subnet_public_1_id_from_networking_module = module.networking.subnet_public_1
     subnet_public_2_id_from_networking_module = module.networking.subnet_public_2
     vpc_id_from_networking_module = module.networking.vpc_id
+}
+
+module "iamrole" {
+    source = "./modules/iamrole"  
+
 }
 
 module "bucket" {
