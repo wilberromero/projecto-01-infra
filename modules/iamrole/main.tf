@@ -6,7 +6,7 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
         Version = "2012-10-17",
         Statement = [
             {
-                    Effect    = "Allow",              
+                    Effect = "Allow",              
                     Action = [
                         "iam:GetRole",
                         "iam:GetRolePolicy",
@@ -17,9 +17,11 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
                         "iam:CreateRole",
                         "iam:AttachRolePolicy",
                         "iam:PutRolePolicy",
-                        "iam:CreatePolicyVersion"
+                        "iam:CreatePolicyVersion",
+                        "iam:DeletePolicyVersion", 
+                        "iam:PassRole" 
                     ],
-                    Resource = "arn:aws:iam::393732592512:policy/ecs_task_execution_policy"
+                    Resource = "*"
             }
         ]
     })    
