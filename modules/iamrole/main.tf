@@ -6,7 +6,7 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
         Version = "2012-10-17"
         Statement = [
             {
-                    Effect    = "Allow"                    
+                    Effect    = "Allow"                  
                     Action  = "*"
                     Resource = "*"
             }
@@ -30,6 +30,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
         ]
     })
 }
+
 
 resource "aws_iam_user_policy_attachment" "attachment_create_role_policy_to_user" {
     user = "arn:aws:iam:393732592512:user/*"
