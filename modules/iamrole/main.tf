@@ -8,7 +8,7 @@ resource "aws_iam_policy" "ecs_task_execution_policy" {
             {
                     Effect    = "Allow"                    
                     Action  = "iam:CreateRole"
-                    Resource = "arn:aws:iam::393732592512:role/*"
+                    Resource = "*"
             }
         ]
     })    
@@ -31,6 +31,12 @@ resource "aws_iam_role" "ecs_task_execution_role" {
     })
 }
 
+resource "aws_iam_user_policy_attachment" "attachment_create_role_policy_to_user" {
+    user = "arn:aws:iam:3937332592512:user/*"
+    policy_arn = aws_iam_policy.ecs_task_execution_policy.arn
+}
+
+
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy_attachment" {
     role = aws_iam_role.ecs_task_execution_role.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEcsTaskExecutionRolePolicy"
@@ -41,3 +47,4 @@ resource "aws_iam_policy_attachment" "attachment_policy_to_ecs_role" {
     roles = [aws_iam_role.ecs_task_execution_role.name]
     policy_arn = aws_iam_policy.ecs_task_execution_policy.arn
 }
+
