@@ -80,12 +80,24 @@ resource "aws_cloudfront_distribution" "my_distribution" {
     }
     enabled = true
 
+    viewer_certificate {
+        cloudfront_default_certificate = true
+        minimum_protocol_version = "TLSv1.2_2019"
+    }
+
+    restrictions {
+        geo_restriction {
+            restriction_type = "whitelist"
+            locations = ["US", "CA"]
+        }
+    }
+
     default_cache_behavior {
         target_origin_id = "s3-${var.aws_bucket_id_from_networking_module}"
         viewer_protocol_policy = "redirect-to-https"
 
-        allowed_methos = ["GET","HEAD", "OPTIONS"]
-        cahed_methods = ["GET","HEAD", "OPTIONS"]
+        allowed_methods = ["GET","HEAD", "OPTIONS"]
+        cached_methods = ["GET","HEAD", "OPTIONS"]
 
         forwarded_values {
             query_string = false
