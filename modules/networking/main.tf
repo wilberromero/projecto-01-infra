@@ -77,6 +77,7 @@ resource "aws_cloudfront_origin_access_identity" "mi_oai" {
     comment = "OAI para acceso al bucket de s3"
 }
 
+
 resource "aws_cloudfront_distribution" "my_distribution" {
     origin {
         domain_name = var.aws_bucket_name_regional_from_networking_module
