@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "example_infra23" {
 data "aws_iam_policy_document" "s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.example_infra23.arn}/*""]
+    resources = ["${aws_s3_bucket.example_infra23.arn}/*"]
 
     principals {
       type        = "AWS"
