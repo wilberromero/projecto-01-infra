@@ -29,3 +29,7 @@ variable "availability_zone_2" {
 variable "aws_bucket_id_from_networking_module" {
     description = "Id del bucket s3"
 }
+
+variable "aws_bucket_name_regional_from_networking_module" {
+    description = "nombre del bucket s3"
+}

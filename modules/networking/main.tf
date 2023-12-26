@@ -75,7 +75,7 @@ resource "aws_security_group" "example" {
 
 resource "aws_cloudfront_distribution" "my_distribution" {
     origin {
-        domain_name = nombre_bucket
+        domain_name = var.aws_bucket_name_regional_from_networking_module
         origin_id = "s3-${var.aws_bucket_id_from_networking_module}"
     }
     enabled = true
@@ -93,7 +93,7 @@ resource "aws_cloudfront_distribution" "my_distribution" {
                 forward = "none"
             }
         }
-        
+
         min_ttl = 0
         default_ttl = 3600
         max_ttl = 86400 

@@ -11,6 +11,7 @@ provider "aws" {
 module "networking" {
     source = "./modules/networking"
     aws_bucket_id_from_networking_module = module.bucket.bucket_id
+    aws_bucket_name_regional_from_networking_module = module.bucket.bucket_domain_name
 }
 
 module "container" {
