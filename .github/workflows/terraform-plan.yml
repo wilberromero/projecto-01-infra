@@ -21,7 +21,8 @@ jobs:
       - name: Terraform validate
         run: terraform validate
 
-      
+      - name: Delete bucket s3 si existente
+        run: terraform state rm module.bucket.aws_s3_bucket.example_infra23
 
       - name: Import bucket s3 existente
         run: terraform import module.bucket.aws_s3_bucket.example_infra23 example-infra23
