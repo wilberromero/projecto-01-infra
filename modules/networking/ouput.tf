@@ -23,6 +23,6 @@ output "aws_cloudfront_distribution" {
 }
 
 output "oai_arn" {
-    value = aws_cloudfront_origin_access_identity.mi_oai.cloudfront_access_identity_aws_account_id
+    value = ${split(':', aws_cloudfront_origin_access_identity.mi_oai.cloudfront_access_identity_path)[5]}"
 }
 
