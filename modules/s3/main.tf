@@ -12,15 +12,11 @@ data "aws_iam_policy_document" "s3_policy" {
       "s3:PutObject",
       "s3:PutObjectAcl",
       "s3:DeleteObject",
-      "s3:*"
+      "s3:*",
+      "s3:ListBucket"
     ]
     resources = ["${aws_s3_bucket.example_infra23.arn}/*"]
-
-    statement {
-      actions   = ["s3:ListBucket"]
-      resources = ["${aws_s3_bucket.example_infra23.arn}/*"]
-    }
-
+       
     principals {
       type        = "AWS"
       identifiers = [var.aws_cloudfront_OAI_arn_from_networking_module]
