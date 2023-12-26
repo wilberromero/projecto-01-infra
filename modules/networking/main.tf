@@ -73,8 +73,8 @@ resource "aws_security_group" "example" {
     }
 }
 
-resource "aws_cloudfront_origin_access_identity" "mi_oai" {
-    comment = "OAI para acceso al bucket de s3"
+resource "aws_cloudfront_origin_access_identity"  "mi_oai" {
+     comment = "Some comment"
 }
 
 
@@ -83,7 +83,7 @@ resource "aws_cloudfront_distribution" "my_distribution" {
         domain_name = var.aws_bucket_name_regional_from_networking_module
         origin_id = "S3-${var.aws_bucket_id_from_networking_module}"
         s3_origin_config {
-            origin_access_identity = aws_cloudfront_origin_access_identity.mi_oai.aws_cloudfront_access_identity_path
+         origin_access_identity = aws_cloudfront_origin_access_identity.mi_oai.cloudfront_access_identity_path
         }
     }
     enabled = true
