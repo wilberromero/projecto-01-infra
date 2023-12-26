@@ -25,3 +25,7 @@ variable "availability_zone_2" {
     description = "zona de disponibilidad"
     default = "us-east-1b"
 }
+
+variable "aws_bucket_id_from_networking_module" {
+    description = "Id del bucket s3"
+}
