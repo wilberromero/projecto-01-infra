@@ -16,7 +16,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
         Principal = {
           AWS = "*"
         },
-        Action =  ["s3:GetObject", "s3:PutObject"]
+        Action =  ["s3:GetObject", "s3:PutObject", "s3:GetBucketPolicy","s3:PutBucketPolicy"]
         Resource = "${aws_s3_bucket.example_infra23.arn}/*"
       }
     ]
