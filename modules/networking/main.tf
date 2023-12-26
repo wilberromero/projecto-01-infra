@@ -76,7 +76,7 @@ resource "aws_security_group" "example" {
 resource "aws_cloudfront_distribution" "my_distribution" {
     origin {
         domain_name = var.aws_bucket_name_regional_from_networking_module
-        origin_id = "s3-${var.aws_bucket_id_from_networking_module}"
+        origin_id = "S3-${var.aws_bucket_id_from_networking_module}"
     }
     enabled = true
 
@@ -87,13 +87,12 @@ resource "aws_cloudfront_distribution" "my_distribution" {
 
     restrictions {
         geo_restriction {
-            restriction_type = "whitelist"
-            locations = ["US", "CA"]
+            restriction_type = "none"
         }
     }
 
     default_cache_behavior {
-        target_origin_id = "s3-${var.aws_bucket_id_from_networking_module}"
+        target_origin_id = "S3-${var.aws_bucket_id_from_networking_module}"
         viewer_protocol_policy = "redirect-to-https"
 
         allowed_methods = ["GET","HEAD", "OPTIONS"]
