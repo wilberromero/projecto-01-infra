@@ -93,6 +93,7 @@ resource "aws_cloudfront_distribution" "my_distribution" {
                 forward = "none"
             }
         }
+        
         min_ttl = 0
         default_ttl = 3600
         max_ttl = 86400 
