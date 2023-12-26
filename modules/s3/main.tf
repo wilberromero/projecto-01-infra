@@ -11,12 +11,12 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid = "GrantCloudFrontAccess",
+        Sid = "GrantCloudFrontAccessToOAI",
         Effect = "Allow",
         Principal = {
-          AWS = "*"
+          CanonicalUser = var.aws_cloudfront_OAI_arn_from_networking_module
         },
-        Action =  ["s3:GetObject", "s3:PutObject", "s3:GetBucketPolicy","s3:PutBucketPolicy"]
+        Action =  ["s3:GetObject", "s3:PutObject"]
         Resource = "${aws_s3_bucket.example_infra23.arn}/*"
       }
     ]

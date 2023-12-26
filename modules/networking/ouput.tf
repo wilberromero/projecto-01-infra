@@ -22,3 +22,7 @@ output "aws_cloudfront_distribution" {
     value = aws_cloudfront_distribution.my_distribution.arn
 }
 
+output "oai_arn" {
+    value = aws_cloudfront_origin_access_identity.mi_oai.iam_arn
+}
+
