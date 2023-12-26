@@ -72,3 +72,43 @@ resource "aws_security_group" "example" {
         cidr_blocks =["0.0.0.0/0"]
     }
 }
+
+resource "aws_cloudfront_distribution" "my_distribution" {
+    origin {
+        domain_name = var.aws_bucket_name_regional_from_networking_module
+        origin_id = "s3-${var.aws_bucket_id_from_networking_module}"
+    }
+    enabled = true
+
+    viewer_certificate {
+        cloudfront_default_certificate = true
+        minimum_protocol_version = "TLSv1.2_2019"
+    }
+
+    restrictions {
+        geo_restriction {
+            restriction_type = "whitelist"
+            locations = ["US", "CA"]
+        }
+    }
+
+    default_cache_behavior {
+        target_origin_id = "s3-${var.aws_bucket_id_from_networking_module}"
+        viewer_protocol_policy = "redirect-to-https"
+
+        allowed_methods = ["GET","HEAD", "OPTIONS"]
+        cached_methods = ["GET","HEAD", "OPTIONS"]
+
+        forwarded_values {
+            query_string = false
+            cookies {
+                forward = "none"
+            }
+        }
+
+        min_ttl = 0
+        default_ttl = 3600
+        max_ttl = 86400 
+    }
+
+}

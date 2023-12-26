@@ -10,6 +10,8 @@ provider "aws" {
 
 module "networking" {
     source = "./modules/networking"
+    aws_bucket_id_from_networking_module = module.bucket.bucket_id
+    aws_bucket_name_regional_from_networking_module = module.bucket.bucket_domain_name
 }
 
 module "container" {
@@ -35,6 +37,7 @@ module "iamrole" {
 
 module "bucket" {
     source = "./modules/s3"
+    aws_cloudfront_distribution_arn_from_networking_module = module.networking.aws_cloudfront_distribution
 }
 
 

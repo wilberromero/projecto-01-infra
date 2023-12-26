@@ -17,3 +17,8 @@ output "aws_internet_gateway" {
 output "aws_security_group" {
     value = aws_security_group.example.id
 }
+
+output "aws_cloudfront_distribution" {
+    value = aws_cloudfront_distribution.my_distribution.arn
+}
+
