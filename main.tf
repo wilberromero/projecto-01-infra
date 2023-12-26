@@ -38,6 +38,7 @@ module "iamrole" {
 module "bucket" {
     source = "./modules/s3"
     aws_cloudfront_distribution_arn_from_networking_module = module.networking.aws_cloudfront_distribution
+    aws_cloudfront_OAI_arn_from_networking_module = module.networking.oai_arn
 }
 
 
